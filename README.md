@@ -2,7 +2,8 @@
 Office Hour Schedule Planner
 
 Instructions: 
-1. Before you run the code, please open config.properties file and enter the API key that you get from this google drive: https://docs.google.com/document/d/1TtXrTAEfc12srimQ3lOHHxlAP7KxfQ6qPyeASubf3jM/edit
-2. Please take a look of our sample.txt file before you proceed testing our code as you will have to enter the correct instructor's info.
-3. When you run the code, you will see Spring Boot is loading in the console. You must open this following link: http://localhost:8080/office-hours in order for the code to process.
+1. Before you run the code, please open the config.properties file and enter the API key that you get from this google drive: https://docs.google.com/document/d/1TtXrTAEfc12srimQ3lOHHxlAP7KxfQ6qPyeASubf3jM/edit
+2. Please take a look at our sample.txt file before you test our code as you will have to enter the correct instructor's info.
+3. When you run the code, you will see Spring Boot loading in the console. You must open the following link: http://localhost:8080/office-hours in order for the code to process.
 4. Lastly, if you wish to rerun the code, you must click the "Stop" button on Eclipse to free HTTP port 8080 before you hit the "Run" button again.
+5. When you check your email to see the notification email from the office hour planner, you will have to check your spam/junk email section to see it. you should see there is an email from officehourplanner@gmail.com.
