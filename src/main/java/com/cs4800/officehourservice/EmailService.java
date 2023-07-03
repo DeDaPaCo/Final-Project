@@ -51,7 +51,7 @@ public class EmailService {
             transactionalEmailsApi.sendTransacEmail(email);
             System.out.println("Email sent to user successfully!");
         } catch (ApiException e) {
-            System.out.println("Failed to send email: " + e.getMessage());
+            System.out.println("Failed to send email: Please make sure you enter the correct email for instructors in txt file and enter the correct API key in config.properties file" + e.getMessage());
         }
     }
 
@@ -81,7 +81,8 @@ public class EmailService {
             transactionalEmailsApi.sendTransacEmail(email);
             System.out.println("Email sent to instructor successfully!");
         } catch (ApiException e) {
-            System.out.println("Failed to send email: " + e.getMessage());
+            System.out.println("Failed to send email: Please make sure you enter the correct email for instructors in txt file and enter the correct API key in config.properties file" + e.getMessage());
         }
     }
 }
+
