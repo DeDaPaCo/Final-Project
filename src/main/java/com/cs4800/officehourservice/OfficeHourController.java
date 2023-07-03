@@ -118,18 +118,6 @@ public class OfficeHourController {
                 }
             }
 
-            // Print the schedule on the console
-            System.out.println("Here is your Office Hour List:");
-            officeHours.stream()
-                    .sorted(Comparator.comparing(OfficeHour::getDayOfWeek).thenComparing(OfficeHour::getTime))
-                    .forEach(officeHour -> {
-                        String dayOfWeek = officeHour.getDayOfWeek().toString();
-                        String time = officeHour.getTime().toString();
-                        String instructor = officeHour.getInstructor();
-                        String location = officeHour.getLocation();
-                        System.out.printf("%s - %s - %s - %s%n", dayOfWeek, time, instructor, location);
-                    });
-            
             StringBuilder scheduleBuilder = new StringBuilder();
             scheduleBuilder.append("<html><head><title>Office Hour Planner</title></head><body><style>td { padding: 5px; white-space: nowrap; }</style><h1>Office Hour Planner</h1><table>");
 
@@ -176,7 +164,7 @@ public class OfficeHourController {
                 if (response.equals("yes") || response.equals("no")) {
                 	validResponse = true;
                 } else {
-                    System.out.println("Invalid response. Please try again here: ");
+                    System.out.print("Invalid response. Please try again here: ");
                 }
             }
 
@@ -206,17 +194,28 @@ public class OfficeHourController {
             	    }
             	}
 
+                // Print the schedule on the console
+                System.out.println("\nHere is your Office Hour List:");
+                officeHours.stream()
+                        .sorted(Comparator.comparing(OfficeHour::getDayOfWeek).thenComparing(OfficeHour::getTime))
+                        .forEach(officeHour -> {
+                            String dayOfWeek = officeHour.getDayOfWeek().toString();
+                            String time = officeHour.getTime().toString();
+                            String instructor = officeHour.getInstructor();
+                            String location = officeHour.getLocation();
+                            System.out.printf("%s - %s - %s - %s%n", dayOfWeek, time, instructor, location);
+                        });
                 
                 boolean isValidAppointment = false;
                 String instructorEmail = null;
                 while (!isValidAppointment) {
                     // Get appointment details from the user
-                    System.out.print("Enter the instructor's name: ");
+                    System.out.print("\nEnter the instructor's name: ");
                     String instructor = scanner.nextLine().trim();
 
                     // Check if the entered instructor name is valid
                     if (!validInstructors.contains(instructor)) {
-                        System.out.print("Invalid instructor name. Please try again. ");
+                        System.out.println("Invalid instructor name. Please try again. ");
                         continue;
                     }
 
