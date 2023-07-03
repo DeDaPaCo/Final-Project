@@ -118,6 +118,18 @@ public class OfficeHourController {
                 }
             }
 
+            // Print the schedule on the console
+            System.out.println("Here is your Office Hour List:");
+            officeHours.stream()
+                    .sorted(Comparator.comparing(OfficeHour::getDayOfWeek).thenComparing(OfficeHour::getTime))
+                    .forEach(officeHour -> {
+                        String dayOfWeek = officeHour.getDayOfWeek().toString();
+                        String time = officeHour.getTime().toString();
+                        String instructor = officeHour.getInstructor();
+                        String location = officeHour.getLocation();
+                        System.out.printf("%s - %s - %s - %s%n", dayOfWeek, time, instructor, location);
+                    });
+            
             StringBuilder scheduleBuilder = new StringBuilder();
             scheduleBuilder.append("<html><head><title>Office Hour Planner</title></head><body><style>td { padding: 5px; white-space: nowrap; }</style><h1>Office Hour Planner</h1><table>");
 
