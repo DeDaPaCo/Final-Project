@@ -49,7 +49,7 @@ public class EmailService {
 
         try {
             transactionalEmailsApi.sendTransacEmail(email);
-            System.out.println("\nEmail sent to user successfully!");
+            System.out.println("Email sent to user successfully!");
         } catch (ApiException e) {
             System.out.println("\nFailed to send email: Please make sure you enter the correct email for instructors in txt file\nand enter the correct API key in config.properties file." + e.getMessage());
         }
