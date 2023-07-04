@@ -184,7 +184,7 @@ public class OfficeHourController {
 
             	// Check if the name is empty or contains non-letter or non-space characters
             	while (userName.isEmpty() || !userName.matches("[a-zA-Z\\s]+")) {
-            	    System.out.println("Invalid name. Please enter a valid name containing only letters and spaces.");
+            	    System.out.println("Invalid name. Please enter a valid name containing only alphabet letters and spaces.");
             	    
             	    // Prompt the user to re-enter the name
             	    System.out.print("Enter your name (required*): ");
