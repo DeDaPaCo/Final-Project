@@ -17,10 +17,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/office-hours")
 public class OfficeHourController {
+	private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+	private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
 
     public static class OfficeHour {
         private DayOfWeek day;
@@ -175,24 +178,44 @@ public class OfficeHourController {
             	String userId = null;
             	String emailAddress = null;
 
-            	while (userName == null || userName.isEmpty() || userId == null || userId.isEmpty() || emailAddress == null || emailAddress.isEmpty()) {
-            	    // Enter the instructor's name
+            	// Enter the instructor's name
+            	System.out.print("Enter your name (required*): ");
+            	userName = scanner.nextLine().trim();
+
+            	// Check if the name is empty or contains non-letter or non-space characters
+            	while (userName.isEmpty() || !userName.matches("[a-zA-Z\\s]+")) {
+            	    System.out.println("Invalid name. Please enter a valid name containing only letters and spaces.");
+            	    
+            	    // Prompt the user to re-enter the name
             	    System.out.print("Enter your name (required*): ");
             	    userName = scanner.nextLine().trim();
+            	}
 
-            	    // Enter the ID
+            	 // Enter the ID
             	    System.out.print("Enter your ID (required*): ");
             	    userId = scanner.nextLine().trim();
 
-            	    // Enter the email address
+            	    // Check if the ID is empty or contains non-numeric characters
+            	    while (userId.isEmpty() || !userId.matches("\\d+")) {
+            	        System.out.println("Invalid ID. Please enter a valid ID containing only numbers.");
+            	        
+            	        // Prompt the user to re-enter the ID
+            	        System.out.print("Enter your ID (required*): ");
+            	        userId = scanner.nextLine().trim();
+            	    }
+
+            	 // Enter the email address
             	    System.out.print("Enter your email address (required*): ");
             	    emailAddress = scanner.nextLine().trim();
 
-            	    // Check if any of the values are empty
-            	    if (userName.isEmpty() || userId.isEmpty() || emailAddress.isEmpty()) {
-            	        System.out.println("Please provide all the required information.");
+            	    // Check if the email address is empty or invalid
+            	    while (emailAddress.isEmpty() || !EMAIL_PATTERN.matcher(emailAddress).matches()) {
+            	        System.out.println("Invalid email address. Please enter a valid email address.");
+            	        
+            	        // Prompt the user to re-enter the email address
+            	        System.out.print("Enter your email address (required*): ");
+            	        emailAddress = scanner.nextLine().trim();
             	    }
-            	}
 
                 // Print the schedule on the console
                 System.out.println("\nHere is your Office Hour List:");
@@ -286,7 +309,7 @@ public class OfficeHourController {
                         responseBuilder.append(successMessage);
                         
                         // Ask the user if they want an email about the appointment
-                        System.out.print("Do you want to receive an email with the appointment details? (yes/no): ");       
+                        System.out.print("\nDo you want to receive an email with the appointment details? (yes/no): ");       
                         boolean validEmailResponse = false;
                         String emailResponse = null;
 
@@ -316,16 +339,17 @@ public class OfficeHourController {
                             String successMessageUser = "<p>Email sent to user successfully!</p>";
                             responseBuilder.append(successMessageUser);
                         }
+                        else if (emailResponse.equals("no")) {
+                            // User chose not to make an appointment
+                            System.out.println("Thank you. Have a nice day!");
+                            String goodbyeMessage = "<p>Thank you. Have a nice day!</p>";
+                            responseBuilder.append(goodbyeMessage);
+                        }
                     } else {
                     	String invalidAppointmentMessage = "<p>Invalid appointment details. Please try again.</p>";
                         responseBuilder.append(invalidAppointmentMessage);
                     }
                 }
-            } else {
-                // User chose not to make an appointment
-                System.out.println("Thank you. Have a nice day!");
-                String goodbyeMessage = "<p>Thank you. Have a nice day!</p>";
-                responseBuilder.append(goodbyeMessage);
             }
          // Close the HTML tags
             responseBuilder.append("</table></body></html>");
